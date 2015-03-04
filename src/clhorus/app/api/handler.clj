@@ -8,7 +8,7 @@
 (defroutes app-routes
            (GET "/" [] "Clhorus toy project!")
            (routes user-routes)
-           (route/not-found "Not Found")
+           (route/not-found {:status 404 :body "Not found"})
            )
 
 (def app
