@@ -8,7 +8,8 @@
                            [mysql/mysql-connector-java "5.1.34"]
                            ]
             :plugins [[lein-ring "0.8.13"]]
-            :ring {:handler clhorus.app.api.handler/app}
+            :ring {:open-browser? false
+                   :handler clhorus.app.api.handler/app}
             :profiles {:dev {:dependencies [
                                             [midje "1.5.1"]
                                             [javax.servlet/servlet-api "2.5"]
