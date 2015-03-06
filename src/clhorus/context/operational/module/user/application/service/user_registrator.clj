@@ -6,5 +6,5 @@
 
 (defn register-user [user-id]
   (->> (create-user user-id)
-       (.add-user user-repository))
+       (.add user-repository))
   )

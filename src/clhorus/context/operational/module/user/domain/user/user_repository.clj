@@ -2,6 +2,6 @@
 
 (defprotocol UserRepository
   ;(add-user [this ^User user])
-  (add-user [this user])
-  (get-user [this user-id])
+  (add [this user])
+  (search [this user-id])
   )
