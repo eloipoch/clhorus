@@ -6,6 +6,7 @@
                            [ring/ring-defaults "0.1.2"]
                            [korma "0.4.0"]
                            [mysql/mysql-connector-java "5.1.34"]
+                           [danlentz/clj-uuid "0.1.2-SNAPSHOT"]
                            ]
             :plugins [[lein-ring "0.8.13"]]
             :ring {:open-browser? false

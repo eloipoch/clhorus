@@ -1,7 +1,6 @@
-(ns clhorus.util.uuid
-  (:import (java.util UUID)))
+(ns clhorus.util.uuid)
 
-(defn- uuid-from-string [uuid-string] (UUID/fromString uuid-string))
+(require '[clj-uuid :as uuid])
 
 (defn- uuid-as-byte-array [uuid]
   (let [u uuid                                              ; uuid4
@@ -13,10 +12,6 @@
         (.array))))
 
 (defn uuid-to-binary [uuid-string]
-  (uuid-as-byte-array (uuid-from-string uuid-string)))
-
-(defn uuid-random []
-  (UUID/randomUUID))
-
-(defn uuid-random-string []
-  (str (uuid-random)))
+  (-> (uuid/as-uuid uuid-string)
+      (uuid-as-byte-array)
+      ))
