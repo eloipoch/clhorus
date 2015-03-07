@@ -1,10 +1,22 @@
-# Clhorus experimenting project
+# Clhorus experimentation project
 
 [![Build Status](https://travis-ci.org/jordillonch/clhorus.svg?branch=master)](https://travis-ci.org/jordillonch/clhorus)
 
 This project aims to experiment DDD concepts using Clojure.
 
 Actually code is in a very early stage.
+
+
+## What are implemented?
+
+- Rest API:
+    - Register a new user.
+
+- Repositories:
+    - Save a user.
+
+- Tests:
+    - User registrator service.
 
 
 ## Installation
