@@ -14,3 +14,9 @@
 
 (defn uuid-to-binary [uuid-string]
   (uuid-as-byte-array (uuid-from-string uuid-string)))
+
+(defn uuid-random []
+  (UUID/randomUUID))
+
+(defn uuid-random-string []
+  (str (uuid-random)))

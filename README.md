@@ -32,4 +32,10 @@ curl http://localhost:3000
 curl --data "id=4d09a800-3838-11e4-916c-0800200c9a66" http://localhost:3000/users -v
 ```
 
+## Test
+
+```
+lein midje
+```
+
 Enjoy! :)

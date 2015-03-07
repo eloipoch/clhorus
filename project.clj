@@ -11,7 +11,7 @@
             :ring {:open-browser? false
                    :handler clhorus.app.api.handler/app}
             :profiles {:dev {:dependencies [
-                                            [midje "1.5.1"]
+                                            [midje "1.6.3"]
                                             [javax.servlet/servlet-api "2.5"]
                                             [ring-mock "0.1.5"]
                                             ]}}

@@ -7,7 +7,6 @@
 
 (defrecord UserRepositoryMySql []
   UserRepository
-  ;(add [this ^User user]
   (add [this user]
     (insert user-entity-korma
             (values {:id (-> user :user-id :id)}))
