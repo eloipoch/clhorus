@@ -1,5 +1,7 @@
 # Clhorus experimenting project
 
+[![Build Status](https://travis-ci.org/jordillonch/clhorus.svg?branch=master)](https://travis-ci.org/jordillonch/clhorus)
+
 This project aims to experiment DDD concepts using Clojure.
 
 Actually code is in a very early stage.
