@@ -1,9 +1,10 @@
 (ns clhorus.context.operational.module.user.domain.user.user-id
-  (:require [clj-uuid :as uuid]))
+  (:require [clj-uuid :as uuid])
+  (:import (java.util UUID)))
 
-(defrecord UserId [id])
+(defrecord UserId [^UUID id])
 
-(defn create-user-id [id]
-  {:pre [(uuid/uuid-string? id)]}
-  (UserId. id)
+(defn create-user-id [user-id]
+  (-> (uuid/as-uuid user-id)
+      (UserId.))
   )

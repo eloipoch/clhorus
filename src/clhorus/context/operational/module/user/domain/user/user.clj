@@ -1,8 +1,9 @@
 (ns clhorus.context.operational.module.user.domain.user.user
-  (:use clhorus.context.operational.module.user.domain.user.user-id))
+  (:use clhorus.context.operational.module.user.domain.user.user-id)
+  (:import (clhorus.context.operational.module.user.domain.user.user_id UserId)))
 
-(defrecord User [user-id])
+(defrecord User [^UserId user-id])
 
 (defn create-user [user-id]
-  (User. (create-user-id user-id))
+  (User. user-id)
   )

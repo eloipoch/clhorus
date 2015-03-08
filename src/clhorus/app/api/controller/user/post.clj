@@ -1,6 +1,8 @@
 (ns clhorus.app.api.controller.user.post
-  (:use clhorus.context.operational.module.user.application.service.user-registrator))
+  (:use clhorus.context.operational.module.user.application.command-handler.user-registration-command-handler))
 
+; @todo use a command bus
 (defn users-post [{{user-id :id} :params}]
-  (register-user user-id)
+  (handle {:command :user-registration-command
+           :user-id user-id})
   {:status 201})
