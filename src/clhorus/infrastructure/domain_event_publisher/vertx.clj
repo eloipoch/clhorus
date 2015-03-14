@@ -1,4 +1,4 @@
-(ns clhorus.context.operational.infrastructure.event-bus.domain-event-publisher-vertx
+(ns clhorus.infrastructure.domain-event-publisher.vertx
   (:require [vertx.eventbus :as eb]))
 
 (def address "domain-event")

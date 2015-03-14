@@ -1,14 +1,12 @@
 (ns clhorus.app.api.handler
   (:use clhorus.app.api.controller.user.post)
-  (:use clhorus.context.analytics.module.user.application.domain-event-handler.create-user-registration-on-user-registered)
   (:require [vertx.http :as http]
             [vertx.http.route :as route]
             [vertx.stream :as stream]
             ))
 
 ; @todo improve
-(defn init []
-  (subscriber)
+(defn run []
   (-> (http/server)
       (http/on-request
         (-> (route/post "/users"

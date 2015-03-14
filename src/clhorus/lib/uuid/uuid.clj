@@ -1,4 +1,4 @@
-(ns clhorus.util.uuid
+(ns clhorus.lib.uuid.uuid
   (:require [clj-uuid :as uuid])
   (:import [java.util UUID]))
 

@@ -7,7 +7,7 @@
 (defn register-user [user-id]
   (let [[user domain-events] (create-user user-id)]
     (add user-repository user)
-    (domain-event-publish domain-events)
+    (publish-domain-events domain-events)
     nil
     )
   )

@@ -4,7 +4,7 @@
 
 (def address "domain-event")
 
-(defn subscriber []
+(defn subscribe-create-user-registration-on-user-registered []
   (eb/on-message
     address
     (fn [domain-event]
