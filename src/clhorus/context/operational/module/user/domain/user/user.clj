@@ -5,5 +5,9 @@
 (defrecord User [^UserId user-id])
 
 (defn create-user [user-id]
-  (User. user-id)
+  [
+   (User. user-id)
+   {:domain-event-name "user-registered"
+    :user-id           (.toString user-id)}
+   ]
   )

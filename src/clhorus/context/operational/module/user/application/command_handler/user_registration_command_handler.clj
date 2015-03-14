@@ -6,4 +6,5 @@
 (defn handle [{user-id :user-id}]
   (-> (create-user-id user-id)
       (register-user))
+  nil
   )

@@ -8,5 +8,6 @@
 (defrecord UserRepositoryMySql []
   UserRepository
   (add [this user]
-    (insert korma-user (values (user-to-korma user))))
+    (insert korma-user (values (user-to-korma user)))
+    user)
   )
