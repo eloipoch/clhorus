@@ -5,5 +5,6 @@
 
 (defn publish [domain-events]
   ;(apply #(eb/publish address %) domain-events)
+  (println "publish message: " domain-events)
   (eb/publish address domain-events)
   )

@@ -8,6 +8,6 @@
   [
    (User. user-id)
    {:domain-event-name "user-registered"
-    :user-id           (.toString user-id)}
+    :user-id           (.toString (:id user-id))}
    ]
   )
