@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/jordillonch/clhorus.svg?branch=master)](https://travis-ci.org/jordillonch/clhorus)
 
-This project aims to experiment DDD concepts using Clojure.
+This project aims to experiment [DDD](http://en.wikipedia.org/wiki/Domain-driven_design) concepts using [Clojure](http://clojure.org) and [Vert.x](http://vertx.io).
 
 Actually code is in a very early stage.
 
@@ -33,17 +33,17 @@ CREATE TABLE `user` (
 
 - Configure database connection in clhorus/context/operational/infrastructure/config.clj
 
-- Run ring server:
+- Run Vert.x:
 
 ```
-lein ring server
+lein vertx run
 ```
 
 - Try:
 
 ```
-curl http://localhost:3000
-curl --data "id=4d09a800-3838-11e4-916c-0800200c9a66" http://localhost:3000/users -v
+curl http://localhost:8080
+curl --data "id=4d09a800-3838-11e4-916c-0800200c9a66" http://localhost:8080/users -v
 ```
 
 ## Test
