@@ -1,14 +1,12 @@
 (ns clhorus.context.operational.infrastructure.command-bus.vertx
-  (:require [clhorus.lib.command-bus.vertx :as cb]))
+  (:require [clhorus.lib.command-bus.protocol :as cb]
+            [clhorus.lib.command-bus.vertx])
+  (:import (clhorus.lib.command_bus.vertx CommandBusVertx)))
 
-;@todo maybe use protocols?
-
-(def address "operational-command-bus")
+(def command-bus (CommandBusVertx. "operational-command-bus"))
 
 (defn handle [command]
-  (cb/handle address command)
-  )
+  (cb/handle command-bus command))
 
-(defn register-command [command-name handle]
-  (cb/register-command address command-name handle)
-  )
+(defn register [command-name handle]
+  (cb/register command-bus command-name handle))
