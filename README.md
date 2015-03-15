@@ -12,6 +12,10 @@ Actually code is in a very early stage.
 - Rest API:
     - Register a new user.
 
+- Command bus.
+
+- Domain event publisher.
+
 - Repositories:
     - Save a user.
 
