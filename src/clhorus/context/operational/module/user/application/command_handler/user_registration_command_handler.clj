@@ -3,6 +3,9 @@
   (:use clhorus.context.operational.module.user.domain.user.user-id)
 )
 
+; @todo use record for the command
+(def command-name :user-registration-command)
+
 (defn handle [{user-id :user-id}]
   (-> (create-user-id user-id)
       (register-user))
