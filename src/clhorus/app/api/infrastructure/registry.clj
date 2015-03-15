@@ -1,5 +1,4 @@
 (ns clhorus.app.api.infrastructure.registry
-  (:require clhorus.context.operational.infrastructure.command-bus.vertx)
-  )
+  (:require [clhorus.context.operational.contract :as operational]))
 
-(def operational-command-bus-handle clhorus.context.operational.infrastructure.command-bus.vertx/handle)
+(def operational-command-bus-handle operational/command-bus-handle)
