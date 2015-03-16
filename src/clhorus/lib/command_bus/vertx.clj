@@ -4,11 +4,11 @@
   (:import (clhorus.lib.command_bus.protocol CommandBus)))
 
 
-(defn- get-address [address command-name]
-  (str address "-" command-name))
+(defn- get-address [address command-class]
+  (str address "-" command-class))
 
 (defn- get-address-from-command [address command]
-  (get-address address (:command command)))
+  (get-address address (class command)))
 
 
 (deftype CommandBusVertx [address]
@@ -17,5 +17,5 @@
   (handle [this command]
     (eb/send (get-address-from-command address command) command))
 
-  (register [this command-name handle]
-    (eb/on-message (get-address address command-name) handle)))
+  (register [this command-class handle]
+    (eb/on-message (get-address address command-class) handle)))
