@@ -9,6 +9,10 @@ Actually code is in a very early stage.
 
 ## What are implemented?
 
+- Contexts:
+    - Operational (the main context).
+    - Analytics.
+
 - Rest API:
     - Register a new user.
 
@@ -18,6 +22,7 @@ Actually code is in a very early stage.
 
 - Repositories:
     - Save a user.
+    - Save a user registration.
 
 - Tests:
     - User registrator service.
