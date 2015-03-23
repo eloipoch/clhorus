@@ -26,7 +26,7 @@ Actually code is in a very early stage.
 ## Installation
 
 - Create a MySQL database called `clhorus_operational_tests`.
-- Dump this sql:
+- Dump this SQL:
 
 ```
 CREATE TABLE `user` (
@@ -34,8 +34,20 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
+- Create a MySQL database called `clhorus_analytics_tests`.
+- Dump this SQL:
 
-- Configure database connection in clhorus/context/operational/infrastructure/config.clj
+```
+CREATE TABLE `user_registration` (
+  `user_id` binary(16) NOT NULL,
+  `registration_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+- Configure database connection in:
+    - `clhorus/context/operational/infrastructure/config.clj`
+    - `clhorus/context/analytics/infrastructure/config.clj`
 
 - Run Vert.x:
 
@@ -57,3 +69,9 @@ lein midje
 ```
 
 Enjoy! :)
+
+
+## TODO
+
+- Use [component](https://github.com/stuartsierra/component) framework.
+- Try [Datomic](http://www.datomic.com).

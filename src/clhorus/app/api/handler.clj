@@ -1,11 +1,11 @@
 (ns clhorus.app.api.handler
-  (:use clhorus.app.api.routing.users)
-  (:use clhorus.app.api.controller.user.post)
+  (:use [clhorus.app.api.routing.users]
+        [clhorus.app.api.controller.user.post])
   (:require [vertx.http :as http]
             [vertx.http.route :as route]
             ))
 
-(defn route-not-found [matcher]
+(defn- route-not-found [matcher]
   (route/no-match
     matcher
     #(-> %
