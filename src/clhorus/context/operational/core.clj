@@ -1,9 +1,24 @@
 (ns clhorus.context.operational.core
-  (:require [clhorus.context.operational.module.user.application.command-handler.user-registration-command-handler :as user-registration-command-handler]
-            [clhorus.context.operational.infrastructure.registry :refer [command-bus-register]]
-            [clhorus.context.operational.module.user.contract.command.user-registration-command])
-  (:import (clhorus.context.operational.module.user.contract.command.user_registration_command UserRegistrationCommand)))
+  (:require
+    [clhorus.context.operational.module.user.contract.command.user-registration-command]
+    [com.stuartsierra.component :as component]
+    [clhorus.context.operational.infrastructure.command-bus.vertx])
+  (:import (clhorus.context.operational.infrastructure.command_bus.vertx CommandBusComponent)))
+
+(def operational-config
+  {:command-bus-name "operational-command-bus"})
+
+(defn operational-system [config-options]
+  (component/system-map
+    :command-bus (-> (:command-bus-name config-options)
+                     (CommandBusComponent.))
+    ;:user-repository (UserRepositoryMySql.)
+    ;:publish-domain-events publish
+    ;:command-bus-handle handle
+    ;:command-bus-register register
+    ))
+
+(def system (component/start (operational-system operational-config)))
 
 (defn configure []
-  (command-bus-register UserRegistrationCommand user-registration-command-handler/handle)
   )

@@ -1,12 +1,23 @@
 (ns clhorus.context.operational.infrastructure.command-bus.vertx
-  (:require [clhorus.lib.command-bus.protocol :as cb]
-            [clhorus.lib.command-bus.vertx])
-  (:import (clhorus.lib.command_bus.vertx CommandBusVertx)))
+  (:require [clhorus.lib.command-bus.vertx]
+            [com.stuartsierra.component :as component]
+            [clhorus.lib.command-bus.protocol :as command-bus]
+            [clhorus.context.operational.module.user.application.command-handler.user-registration-command-handler :as user-registration-command-handler])
+  (:import (clhorus.lib.command_bus.vertx CommandBusVertx)
+           (clhorus.context.operational.module.user.contract.command.user_registration_command UserRegistrationCommand)))
 
-(def command-bus (CommandBusVertx. "operational-command-bus"))
+(defrecord CommandBusComponent [name]
+  component/Lifecycle
 
-(defn handle [command]
-  (cb/handle command-bus command))
+  (start [component]
+    (let [command-bus (CommandBusVertx. name)
+          user-registration-command-handler-id (command-bus/register command-bus UserRegistrationCommand user-registration-command-handler/handle)]
+      (-> component
+          (assoc :command-bus-vertx command-bus)
+          (assoc :user-registration-command-handler-id user-registration-command-handler-id))))
 
-(defn register [command-name handle]
-  (cb/register command-bus command-name handle))
+  (stop [component]
+    (command-bus/unregister (:command-bus-vertx component) (:user-registration-command-handler-id component))
+    (-> component
+        (assoc :command-bus-vertx nil)
+        (assoc :user-registration-command-handler-id nil))))

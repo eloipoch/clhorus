@@ -1,6 +1,7 @@
 (ns clhorus.context.operational.module.user.infrastructure.persistence.user.user-mapping
   (:use clhorus.context.operational.infrastructure.persistence.korma.connection)
   (:use clhorus.lib.uuid.uuid)
+  (:require [clhorus.context.operational.module.user.domain.user.user])
   (:import (clhorus.context.operational.module.user.domain.user.user User)))
 
 (use 'korma.core)
