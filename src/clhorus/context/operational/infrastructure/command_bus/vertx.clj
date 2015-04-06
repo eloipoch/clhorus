@@ -11,10 +11,12 @@
 
   (start [component]
     (let [command-bus (CommandBusVertx. name)
-          user-registration-command-handler-id (command-bus/register command-bus UserRegistrationCommand user-registration-command-handler/handle)]
+          user-registration-command-handler-id (command-bus/register command-bus UserRegistrationCommand (partial user-registration-command-handler/handle (:repository (:repository-user component)) (:publisher (:domain-event-publisher component))))
+          ]
       (-> component
           (assoc :command-bus-vertx command-bus)
-          (assoc :user-registration-command-handler-id user-registration-command-handler-id))))
+          (assoc :user-registration-command-handler-id user-registration-command-handler-id)
+          )))
 
   (stop [component]
     (command-bus/unregister (:command-bus-vertx component) (:user-registration-command-handler-id component))

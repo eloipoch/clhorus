@@ -3,7 +3,6 @@
   (:use clhorus.context.operational.module.user.domain.user.user-repository)
   (:use clhorus.context.operational.module.user.domain.user.user)
   (:use clhorus.context.operational.module.user.domain.user.user-id)
-  (:use clhorus.context.operational.infrastructure.registry)
   (:require
     ;[clojure.test :refer :all]
     [clojure.test :refer [deftest is use-fixtures]]
