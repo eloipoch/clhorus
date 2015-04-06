@@ -11,7 +11,7 @@
 
   (start [component]
     (let [command-bus (CommandBusVertx. name)
-          user-registration-command-handler-id (command-bus/register command-bus UserRegistrationCommand (partial user-registration-command-handler/handle (:repository (:repository-user component)) (:publisher (:domain-event-publisher component))))
+          user-registration-command-handler-id (command-bus/register command-bus UserRegistrationCommand (partial user-registration-command-handler/handle (:repository-user component) (:publisher (:domain-event-publisher component))))
           ]
       (-> component
           (assoc :command-bus-vertx command-bus)

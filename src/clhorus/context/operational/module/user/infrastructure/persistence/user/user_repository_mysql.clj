@@ -4,11 +4,10 @@
             [korma.core :as korma])
   (:import (clhorus.context.operational.module.user.domain.user.user_repository UserRepository)))
 
-; @todo find
-(defrecord UserRepositoryMySql [database]
+(defrecord UserRepositoryMySql []
   UserRepository
-  (add [this user]
-    (let [entity-with-database (korma/database entity-user-korma database)]
+  (add [component user]
+    (let [entity-with-database (korma/database entity-user-korma (:database (:database component)))]
       (korma/insert entity-with-database (korma/values (user-to-korma user)))
       user))
   )

@@ -5,7 +5,6 @@
   )
 
 (defn- initialize-contexts []
-  (clhorus.context.operational.core/configure)
   (clhorus.context.analytics.core/configure)
   )
 
