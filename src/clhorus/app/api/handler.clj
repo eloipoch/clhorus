@@ -12,15 +12,15 @@
          (http/server-response {:status-code 404})
          (http/end))))
 
-(def routes
-  (-> (route/matcher)
-      (route-users)
-      (route-not-found)
-      )
+(defn routes [system]
+  (->> (route/matcher)
+       (route-users system)
+       (route-not-found)
+       )
   )
 
-(defn run []
+(defn run [system]
   (-> (http/server)
-      (http/on-request routes)
+      (http/on-request (routes system))
       (http/listen 8080 "localhost"))
   )

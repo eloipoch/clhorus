@@ -7,12 +7,12 @@
   )
 
 ; @todo improve
-(defn- route-users-post [matcher]
+(defn- route-users-post [system matcher]
   (route/post matcher "/users"
               (fn [request]
                 (http/expect-multi-part request)
                 (stream/on-end request
-                               #(users-post (http/form-attributes request))
+                               #(users-post system (http/form-attributes request))
                                )
                 (-> request
                     (http/server-response {:status-code 201})
@@ -20,7 +20,7 @@
                 )
               ))
 
-(defn- route-users-get [matcher]
+(defn- route-users-get [system matcher]
   (route/get matcher "/users"
              (fn [request]
                (-> request
@@ -29,8 +29,8 @@
                )
              ))
 
-(defn route-users [matcher]
-  (-> matcher
-      (route-users-get)
-      (route-users-post))
+(defn route-users [system matcher]
+  (->> matcher
+       (route-users-get system)
+       (route-users-post system))
   )
