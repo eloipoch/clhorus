@@ -8,7 +8,7 @@
   (:import (clhorus.context.operational.infrastructure.persistence.korma.connection DatabaseKormaComponent)
            (clhorus.lib.command_bus.vertx CommandBusVertx)))
 
-(defn context-system [config-options]
+(defn context-operational-system [config-options]
   (component/system-map
     :database-operational (DatabaseKormaComponent. (:database config-options))
     :operational-command-bus (CommandBusVertx. (:command-bus-name config-options))

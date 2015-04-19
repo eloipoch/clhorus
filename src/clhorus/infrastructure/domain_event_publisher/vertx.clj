@@ -2,20 +2,18 @@
   (:require [vertx.eventbus :as eb]
             [com.stuartsierra.component :as component]))
 
-;(def address "domain-event")
-;
-;(defn publish [domain-events]
-;  ;(apply #(eb/publish address %) domain-events)
-;  (println "publish message: " domain-events)
-;  (eb/publish address domain-events)
-;  )
-
-; @fixme move it to main core component
+; @fixme subscribe that is listening to all messages
 (defrecord DomainEventPublisherVertxComponent [address]
   component/Lifecycle
 
   (start [component]
-    (assoc component :publisher (partial eb/publish address)))
+    (-> component
+        (assoc :publisher (partial eb/publish address))
+        (assoc :subscribe (partial eb/on-message address)))
+    )
 
   (stop [component]
-    (assoc component :publisher nil)))
+    (-> component
+        (assoc :publisher nil)
+        (assoc :subscribe nil))
+    ))

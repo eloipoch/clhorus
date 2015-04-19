@@ -4,16 +4,14 @@
             [clhorus.context.operational.module.user.application.command-handler.user-registration-command-handler :as user-registration-command-handler])
   (:import (clhorus.context.operational.module.user.contract.command.user_registration_command UserRegistrationCommand)))
 
+; @fixme refactor how handlers are registered
 (defrecord CommandBusComponent []
   component/Lifecycle
 
   (start [component]
-    (println "start commandbushandler")
     (let [command-bus (:operational-command-bus component)
           user-registration-command-handler-id (command-bus/register command-bus UserRegistrationCommand (partial user-registration-command-handler/handle (:repository-user component) (:publisher (:domain-event-publisher component))))
           ]
-      (println command-bus)
-      (println user-registration-command-handler-id)
       (-> component
           (assoc :user-registration-command-handler-id user-registration-command-handler-id)
           )))
