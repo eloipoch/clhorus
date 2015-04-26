@@ -1,4 +1,4 @@
-(ns clhorus.infrastructure.domain-event-publisher.vertx
+(ns clhorus.infrastructure.domain-event-publisher.vertx-component
   (:require [vertx.eventbus :as eb]
             [com.stuartsierra.component :as component]))
 
@@ -9,11 +9,9 @@
   (start [component]
     (-> component
         (assoc :publisher (partial eb/publish address))
-        (assoc :subscribe (partial eb/on-message address)))
-    )
+        (assoc :subscribe (partial eb/on-message address))))
 
   (stop [component]
     (-> component
         (assoc :publisher nil)
-        (assoc :subscribe nil))
-    ))
+        (assoc :subscribe nil))))

@@ -3,12 +3,12 @@
   (:require clhorus.context.analytics.core)
   (:require clhorus.app.api.handler
             [com.stuartsierra.component :as component]
-            [clhorus.infrastructure.domain-event-publisher.vertx]
+            [clhorus.infrastructure.domain-event-publisher.vertx-component]
             [clhorus.context.operational.core :refer [context-operational-system]]
             [clhorus.context.analytics.core :refer [context-analytics-system]]
             )
 
-  (:import (clhorus.infrastructure.domain_event_publisher.vertx DomainEventPublisherVertxComponent)))
+  (:import (clhorus.infrastructure.domain_event_publisher.vertx_component DomainEventPublisherVertxComponent)))
 
 (def main-config
   {:domain-event-address-name "domain-event"})

@@ -8,6 +8,5 @@
   UserRepository
   (add [component user]
     (let [entity-with-database (korma/database entity-user-korma (:database (:database component)))]
-      (println entity-with-database)
       (korma/insert entity-with-database (korma/values (user-to-korma user)))
       user)))

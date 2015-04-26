@@ -15,8 +15,6 @@
   CommandBus
 
   (handle [this command]
-    (println address)
-    (println command)
     (eb/send (get-address-from-command address command) command))
 
   (register [this command-class handle]
