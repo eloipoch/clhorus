@@ -5,7 +5,6 @@
             [com.stuartsierra.component :as component]
             [clhorus.infrastructure.domain-event-publisher.vertx]
             [clhorus.context.operational.core :refer [context-operational-system]]
-            [clhorus.context.operational.config :refer [operational-config]]
             [clhorus.context.analytics.core :refer [context-analytics-system]]
             )
 
@@ -17,8 +16,8 @@
 (defn main-system [config-options]
   (component/system-map
     :domain-event-publisher (DomainEventPublisherVertxComponent. (:domain-event-address-name config-options))
-    :context-operational (component/using (context-operational-system operational-config) [:domain-event-publisher])
-    :context-analytics (component/using (context-analytics-system operational-config) [:domain-event-publisher])
+    :context-operational (component/using (context-operational-system) [:domain-event-publisher])
+    :context-analytics (component/using (context-analytics-system) [:domain-event-publisher])
     ))
 
 (defn- initialize-applications [system]

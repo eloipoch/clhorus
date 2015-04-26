@@ -1,6 +1,5 @@
 (ns clhorus.context.analytics.module.user.infrastructure.persistence.user-registration.user-registration-mapping
-  (:use [clhorus.context.analytics.infrastructure.persistence.korma.connection]
-        [clhorus.lib.uuid.uuid]
+  (:use [clhorus.lib.uuid.uuid]
         [korma.core])
   (:require [clhorus.context.analytics.module.user.domain.user-registration.user-registration])
   (:import (clhorus.context.analytics.module.user.domain.user_registration.user_registration UserRegistration)))

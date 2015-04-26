@@ -1,7 +1,7 @@
 (ns clhorus.context.operational.module.user.user-module-component
   (:require [com.stuartsierra.component :as component]
             [clhorus.context.operational.module.user.infrastructure.persistence.user.user-repository-mysql]
-            [clhorus.context.operational.infrastructure.command-bus.vertx])
+            [clhorus.context.operational.infrastructure.command-bus.vertx-component])
   (:import (clhorus.context.operational.module.user.infrastructure.persistence.user.user_repository_mysql UserRepositoryMySql)
            (clhorus.context.operational.infrastructure.command_bus.vertx CommandBusComponent)))
 

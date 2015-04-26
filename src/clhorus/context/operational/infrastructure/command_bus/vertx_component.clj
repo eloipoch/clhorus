@@ -1,10 +1,10 @@
-(ns clhorus.context.operational.infrastructure.command-bus.vertx
+(ns clhorus.context.operational.infrastructure.command-bus.vertx-component
   (:require [com.stuartsierra.component :as component]
             [clhorus.lib.command-bus.protocol :as command-bus]
             [clhorus.context.operational.module.user.application.command-handler.user-registration-command-handler :as user-registration-command-handler])
   (:import (clhorus.context.operational.module.user.contract.command.user_registration_command UserRegistrationCommand)))
 
-; @fixme refactor how handlers are registered
+; @fixme refactor how handlers are registered, should be registered in every module
 (defrecord CommandBusComponent []
   component/Lifecycle
 
