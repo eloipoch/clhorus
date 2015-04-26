@@ -21,9 +21,8 @@
     :context-analytics (component/using (context-analytics-system operational-config) [:domain-event-publisher])
     ))
 
-; @fixme pass to the api just the components needed
 (defn- initialize-applications [system]
-  (clhorus.app.api.handler/run system)
+  (clhorus.app.api.handler/run (:context-operational system))
   )
 
 (defn run []
