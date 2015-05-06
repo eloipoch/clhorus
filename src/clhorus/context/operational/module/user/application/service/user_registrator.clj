@@ -1,13 +1,10 @@
 (ns clhorus.context.operational.module.user.application.service.user-registrator
   (:use clhorus.context.operational.module.user.domain.user.user)
-  (:use clhorus.context.operational.module.user.domain.user.user-repository)
-  (:use clhorus.context.operational.infrastructure.registry)
-  )
+  (:use clhorus.context.operational.module.user.domain.user.user-repository))
 
-(defn register-user [user-id]
+(defn register-user [user-id repository publisher]
   (let [[user domain-events] (create-user user-id)]
-    (add user-repository user)
-    (publish-domain-events domain-events)
+    (add repository user)
+    (publisher domain-events)
     nil
-    )
-  )
+    ))

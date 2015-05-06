@@ -1,13 +1,12 @@
 (ns clhorus.context.operational.module.user.infrastructure.persistence.user.user-repository-mysql
-  (:use clhorus.context.operational.module.user.infrastructure.persistence.user.user-mapping)
-  (:use clhorus.context.operational.module.user.domain.user.user-repository))
+  (:require [clhorus.context.operational.module.user.infrastructure.persistence.user.user-mapping :refer :all]
+            [clhorus.context.operational.module.user.domain.user.user-repository]
+            [korma.core :as korma])
+  (:import (clhorus.context.operational.module.user.domain.user.user_repository UserRepository)))
 
-(use 'korma.core)
-
-; @todo find
 (defrecord UserRepositoryMySql []
   UserRepository
-  (add [this user]
-    (insert korma-user (values (user-to-korma user)))
-    user)
-  )
+  (add [component user]
+    (let [entity-with-database (korma/database entity-user-korma (:database (:database component)))]
+      (korma/insert entity-with-database (korma/values (user-to-korma user)))
+      user)))

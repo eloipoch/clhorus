@@ -5,15 +5,16 @@
                            [mysql/mysql-connector-java "5.1.34"]
                            [danlentz/clj-uuid "0.1.2-SNAPSHOT"]
                            [io.vertx/lang-clojure "1.0.4"]
-                           [clj-time "0.9.0"]]
+                           [clj-time "0.9.0"]
+                           [com.stuartsierra/component "0.2.3"]]
             :plugins [[lein-vertx "0.3.1"]]
             :profiles {:dev {:dependencies [[midje "1.6.3"]
                                             [lein-midje "3.1.3"]
                                             [javax.servlet/servlet-api "2.5"]]
                              :plugins      [[lein-midje "3.1.3"]]}}
-            :vertx {:main clhorus.core/run
-                    :author "Jordi Llonch"
-                    :keywords ["clhorus" "ddd" "clojure"]
+            :vertx {:main       clhorus.core/run
+                    :author     "Jordi Llonch"
+                    :keywords   ["clhorus" "ddd" "clojure"]
                     :developers []}
             )
   

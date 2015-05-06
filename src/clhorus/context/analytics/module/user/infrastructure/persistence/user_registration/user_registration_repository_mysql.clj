@@ -1,13 +1,13 @@
 (ns clhorus.context.analytics.module.user.infrastructure.persistence.user-registration.user-registration-repository-mysql
-  (:use clhorus.context.analytics.module.user.infrastructure.persistence.user-registration.user-registration-mapping)
-  (:use clhorus.context.analytics.module.user.domain.user-registration.user-registration-repository))
-
-(use 'korma.core)
+  (:use [clhorus.context.analytics.module.user.infrastructure.persistence.user-registration.user-registration-mapping]
+        [clhorus.context.analytics.module.user.domain.user-registration.user-registration-repository])
+  (:require [korma.core :as korma]))
 
 ; @todo find
 (defrecord UserRegistrationRepositoryMySql []
   UserRegistrationRepository
-  (add [this user-registration]
-    (insert korma-user-registration (values (entity-to-korma user-registration)))
-    user-registration)
+  (add [component user]
+    (let [entity-with-database (korma/database entity-user-registration-korma (:database (:database component)))]
+      (korma/insert entity-with-database (korma/values (user-registration-to-korma user)))
+      user))
   )

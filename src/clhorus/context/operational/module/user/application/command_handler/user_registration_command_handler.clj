@@ -1,12 +1,11 @@
 (ns clhorus.context.operational.module.user.application.command-handler.user-registration-command-handler
-  (:use clhorus.context.operational.module.user.application.service.user-registrator)
-  (:use clhorus.context.operational.module.user.domain.user.user-id)
-  (:require clhorus.context.operational.module.user.contract.command.user-registration-command)
-  (:import (clhorus.context.operational.module.user.contract.command.user_registration_command UserRegistrationCommand)))
+  (:require [clhorus.context.operational.module.user.contract.command.user-registration-command]
+            [clhorus.context.operational.module.user.application.service.user-registrator :refer [register-user]]
+            [clhorus.context.operational.module.user.domain.user.user-id :refer [create-user-id]]))
 
-(defn handle [^UserRegistrationCommand command]
+(defn handle [repository publisher command]
   (-> (:user-id command)
       (create-user-id)
-      (register-user))
+      (register-user repository publisher))
   nil
   )

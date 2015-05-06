@@ -1,9 +1,9 @@
 (ns clhorus.app.api.handler
   (:use [clhorus.app.api.routing.users]
         [clhorus.app.api.controller.user.post])
-  (:require [vertx.http :as http]
-            [vertx.http.route :as route]
-            ))
+  (:require [clhorus.app.api.config :refer [app-api-config]]
+            [vertx.http :as http]
+            [vertx.http.route :as route]))
 
 (defn- route-not-found [matcher]
   (route/no-match
@@ -12,15 +12,15 @@
          (http/server-response {:status-code 404})
          (http/end))))
 
-(def routes
-  (-> (route/matcher)
-      (route-users)
-      (route-not-found)
-      )
+(defn routes [operational-command-bus]
+  (->> (route/matcher)
+       (route-users operational-command-bus)
+       (route-not-found)
+       )
   )
 
-(defn run []
+(defn run [context-operational]
   (-> (http/server)
-      (http/on-request routes)
-      (http/listen 8080 "localhost"))
+      (http/on-request (routes (:operational-command-bus context-operational)))
+      (http/listen (:port app-api-config) (:server app-api-config)))
   )

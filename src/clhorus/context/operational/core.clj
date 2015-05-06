@@ -1,9 +1,18 @@
 (ns clhorus.context.operational.core
-  (:require [clhorus.context.operational.module.user.application.command-handler.user-registration-command-handler :as user-registration-command-handler]
-            [clhorus.context.operational.infrastructure.registry :refer [command-bus-register]]
-            [clhorus.context.operational.module.user.contract.command.user-registration-command])
-  (:import (clhorus.context.operational.module.user.contract.command.user_registration_command UserRegistrationCommand)))
+  (:require
+    [com.stuartsierra.component :as component]
+    [clhorus.lib.command-bus.vertx]
+    [clhorus.context.operational.config :refer [operational-config]]
+    [clhorus.context.operational.infrastructure.persistence.korma-component]
+    [clhorus.context.operational.module.user.user-module-component :refer [user-module-system]])
+  (:import (clhorus.lib.command_bus.vertx CommandBusVertx)
+           (clhorus.context.operational.infrastructure.persistence.korma_component DatabaseKormaComponent)))
 
-(defn configure []
-  (command-bus-register UserRegistrationCommand user-registration-command-handler/handle)
-  )
+(defn context-operational-system []
+  (component/system-map
+    :database-operational (DatabaseKormaComponent. (:database operational-config))
+    :operational-command-bus (CommandBusVertx. (:command-bus-name operational-config))
+    :user-module (component/using (user-module-system) [:domain-event-publisher
+                                                        :database-operational
+                                                        :operational-command-bus])
+    ))

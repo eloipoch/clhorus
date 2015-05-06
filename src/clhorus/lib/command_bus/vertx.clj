@@ -18,4 +18,8 @@
     (eb/send (get-address-from-command address command) command))
 
   (register [this command-class handle]
-    (eb/on-message (get-address address command-class) handle)))
+    (eb/on-message (get-address address command-class) handle))
+
+  (unregister [this id]
+    (eb/unregister-handler id)
+    ))
