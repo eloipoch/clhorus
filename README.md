@@ -27,6 +27,8 @@ Actually code is in a very early stage.
 - Tests:
     - User registrator service.
 
+- [Component](https://github.com/stuartsierra/component).
+
 
 ## Installation
 
@@ -78,5 +80,4 @@ Enjoy! :)
 
 ## TODO
 
-- Use [component](https://github.com/stuartsierra/component) framework.
 - Try [Datomic](http://www.datomic.com).
