@@ -3,8 +3,14 @@
             [clhorus.lib.command-bus.protocol :as cb])
   (:import (clhorus.context.operational.module.user.contract.command.user_registration_command UserRegistrationCommand)))
 
-(defn users-post [operational-command-bus form-attributes-request]
-  (let [user-id                   (:id form-attributes-request)
+(defn users-post [operational-command-bus request]
+  (let [user-id                   (:id request)
         user-registration-command (UserRegistrationCommand. user-id)]
     (cb/handle operational-command-bus user-registration-command)
     {:status 201}))
+
+
+;(defn users-post [{{user-id :id} :params}]
+;  (handle {:command :user-registration-command
+;           :user-id user-id})
+;  {:status 201})

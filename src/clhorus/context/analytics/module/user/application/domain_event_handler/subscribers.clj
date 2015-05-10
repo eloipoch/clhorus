@@ -8,7 +8,7 @@
 
   (start [component]
     (-> component
-        (assoc :subscriber-handler-id-create-user-registration ((:subscribe (:domain-event-publisher component)) (partial create-user-registration-on-user-registered (:repository-user component)))))
+        (assoc :subscriber-handler-id-create-user-registration ((get-in component [:domain-event-publisher :subscribe]) (partial create-user-registration-on-user-registered (:repository-user component)))))
     )
 
   (stop [component]
