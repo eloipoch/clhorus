@@ -8,9 +8,3 @@
         user-registration-command (UserRegistrationCommand. user-id)]
     (cb/handle operational-command-bus user-registration-command)
     {:status 201}))
-
-
-;(defn users-post [{{user-id :id} :params}]
-;  (handle {:command :user-registration-command
-;           :user-id user-id})
-;  {:status 201})
