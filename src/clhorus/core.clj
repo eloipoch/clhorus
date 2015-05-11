@@ -13,13 +13,15 @@
 (def main-config
   {:domain-event-address-name "domain-event"})
 
-(def system
+(defn clhorus-system []
   (component/system-map
     :domain-event-publisher (DomainEventPublisherChannelComponent. (:domain-event-address-name main-config))
     :context-operational (component/using (context-operational-system) [:domain-event-publisher])
     :context-analytics (component/using (context-analytics-system) [:domain-event-publisher])
     :application-api (component/using (ApplicationApiComponent.) [:context-operational])
     ))
+
+(def system (clhorus-system))
 
 (defn start []
   (println "Starting...")
