@@ -8,7 +8,8 @@
                            [mysql/mysql-connector-java "5.1.34"]
                            [danlentz/clj-uuid "0.1.2-SNAPSHOT"]
                            [clj-time "0.9.0"]
-                           [com.stuartsierra/component "0.2.3"]]
+                           [com.stuartsierra/component "0.2.3"]
+                           [org.clojure/core.async "0.1.346.0-17112a-alpha"]]
             :plugins [[lein-ring "0.8.13"]]
             :ring {:open-browser? false
                    :handler       clhorus.app.api.handler/app}
