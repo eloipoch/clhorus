@@ -17,6 +17,7 @@
       (->> bus
            (assoc @atom-chan-handlers handler-id)
            (reset! atom-chan-handlers))
+      ; @fixme it should manage how ends the infinite loop
       (go (while true
             (let [[command chanel] (alts! [bus])]
               (handle command))))
