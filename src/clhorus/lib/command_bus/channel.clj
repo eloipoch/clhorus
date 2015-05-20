@@ -12,7 +12,6 @@
       (go (>! handler command))))
 
   (register [this command-class handle]
-    (println "register 1: " command-class handle)
     (let [handler-id command-class
           bus        (chan)]
       (->> bus
@@ -20,15 +19,12 @@
            (reset! atom-chan-handlers))
       (go (while true
             (let [[command chanel] (alts! [bus])]
-              (println "handle: " command)
               (handle command))))
-      handler-id)
-    (println "register 2: " atom-chan-handlers)
-    )
+      handler-id))
 
   (unregister [this id]
-    (-> (dissoc @atom-chan-handlers id)
-        (reset! atom-chan-handlers))))
+    (->> (dissoc @atom-chan-handlers id)
+         (reset! atom-chan-handlers))))
 
 (defn new-command-bus-channel []
   (CommandBusChannel. (atom {})))
