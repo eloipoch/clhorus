@@ -5,17 +5,14 @@
             [clhorus.context.operational.core :refer [context-operational-system]]
             [clhorus.context.analytics.core :refer [context-analytics-system]]
             [clhorus.app.api.handler]
+            [clhorus.lib.domain-event.channel :refer [new-domain-event-publisher-channel]]
             )
 
-  (:import (clhorus.infrastructure.domain_event_publisher.channel_component DomainEventPublisherChannelComponent)
-           (clhorus.app.api.handler ApplicationApiComponent)))
-
-(def main-config
-  {:domain-event-address-name "domain-event"})
+  (:import (clhorus.app.api.handler ApplicationApiComponent)))
 
 (defn clhorus-system []
   (component/system-map
-    :domain-event-publisher (DomainEventPublisherChannelComponent. (:domain-event-address-name main-config))
+    :domain-event-publisher (new-domain-event-publisher-channel)
     :context-operational (component/using (context-operational-system) [:domain-event-publisher])
     :context-analytics (component/using (context-analytics-system) [:domain-event-publisher])
     :application-api (component/using (ApplicationApiComponent.) [:context-operational])

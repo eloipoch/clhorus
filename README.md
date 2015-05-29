@@ -56,10 +56,10 @@ CREATE TABLE `user_registration` (
     - `clhorus/context/operational/infrastructure/config.clj`
     - `clhorus/context/analytics/infrastructure/config.clj`
 
-- Run Vert.x:
+- Run:
 
 ```
-lein vertx run
+lein run -m clhorus.core
 ```
 
 - Try:
