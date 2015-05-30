@@ -1,18 +1,22 @@
 (ns clhorus.context.analytics.module.user.application.domain-event-handler.subscribers
   (:require [com.stuartsierra.component :as component]
-            [clhorus.context.analytics.module.user.application.domain-event-handler.create-user-registration-on-user-registered :refer [create-user-registration-on-user-registered]]))
+            [clhorus.lib.domain-event.protocol :as domain-event]
+            [clhorus.context.operational.module.user.contract.domain-event.user-registered-domain-event]
+            [clhorus.context.analytics.module.user.application.domain-event-handler.create-user-registration-on-user-registered :refer [create-user-registration-on-user-registered]])
+  (:import (clhorus.context.operational.module.user.contract.domain_event.user_registered_domain_event UserRegisteredDomainEvent)))
 
-; @fixme use a domain event deftype like command-bus and do the unsubscribe
 (defrecord UserSubscribers []
   component/Lifecycle
 
   (start [component]
-    (-> component
-        (assoc :subscriber-handler-id-create-user-registration ((:subscribe (:domain-event-publisher component)) (partial create-user-registration-on-user-registered (:repository-user component)))))
-    )
+    (let [publisher                            (:domain-event-publisher component)
+          repository-user                      (:repository-user component)
+          user-registration-command-handler-id (domain-event/subscribe publisher UserRegisteredDomainEvent (partial create-user-registration-on-user-registered repository-user))]
+      (-> component
+          (assoc :user-registered-domain-event-handler-id user-registration-command-handler-id))))
 
   (stop [component]
     (-> component
-        (assoc :subscriber-handler-id-create-user-registration nil))
+        (assoc :user-registered-domain-event-handler-id nil))
     )
   )

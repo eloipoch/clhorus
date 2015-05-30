@@ -11,7 +11,7 @@
   (start [component]
     (let [command-bus                          (:operational-command-bus component)
           repository-user                      (:repository-user component)
-          publisher                            (:publisher (:domain-event-publisher component))
+          publisher                            (:domain-event-publisher component)
           user-registration-command-handler-id (command-bus/register command-bus UserRegistrationCommand (partial user-registration-command-handler/handle repository-user publisher))]
       (-> component
           (assoc :user-registration-command-handler-id user-registration-command-handler-id)

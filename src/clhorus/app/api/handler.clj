@@ -1,26 +1,33 @@
 (ns clhorus.app.api.handler
-  (:use [clhorus.app.api.routing.users]
-        [clhorus.app.api.controller.user.post])
-  (:require [clhorus.app.api.config :refer [app-api-config]]
-            [vertx.http :as http]
-            [vertx.http.route :as route]))
+  (:require [compojure.core :refer :all]
+            [compojure.route :as route]
+            [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [org.httpkit.server :refer [run-server]]
+            [com.stuartsierra.component :as component]
+            [clhorus.app.api.config :refer [app-api-config]]
+            [clhorus.app.api.routing.users :refer [routes-users]]
+            ))
 
-(defn- route-not-found [matcher]
-  (route/no-match
-    matcher
-    #(-> %
-         (http/server-response {:status-code 404})
-         (http/end))))
+(defn app-routes [operational-command-bus]
+  (routes
+    (GET "/" [] "Clhorus toy project!")
+    (routes-users operational-command-bus)
+    (route/not-found "Not found")))
 
-(defn routes [operational-command-bus]
-  (->> (route/matcher)
-       (route-users operational-command-bus)
-       (route-not-found)
-       )
-  )
+(defrecord ApplicationApiComponent []
+  component/Lifecycle
 
-(defn run [context-operational]
-  (-> (http/server)
-      (http/on-request (routes (:operational-command-bus context-operational)))
-      (http/listen (:port app-api-config) (:server app-api-config)))
-  )
+  (start [component]
+    (println "  Starting Application API...")
+    (assoc component :stop-server
+                     (run-server
+                       (wrap-defaults
+                         (app-routes (get-in component [:context-operational :operational-command-bus]))
+                         (assoc-in site-defaults [:security :anti-forgery] false))
+                       app-api-config)
+                     ))
+
+  (stop [component]
+    (println "  Stopping Application API...")
+    ((:stop-server component))
+    (dissoc component :stop-server)))
