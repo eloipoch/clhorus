@@ -1,6 +1,6 @@
 (ns clhorus.lib.domain-event.channel
   (:require [clhorus.lib.domain-event.protocol]
-            [clojure.core.async :as async :refer :all])
+            [clojure.core.async :as async :refer [>! go alts! chan]])
   (:import (clhorus.lib.domain_event.protocol DomainEventPublisher)))
 
 (deftype DomainEventPublisherChannel [atom-chan-handlers]

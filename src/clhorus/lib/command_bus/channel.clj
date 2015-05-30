@@ -1,6 +1,6 @@
 (ns clhorus.lib.command-bus.channel
   (:require [clhorus.lib.command-bus.protocol]
-            [clojure.core.async :as async :refer :all])
+            [clojure.core.async :as async :refer [>! go alts! chan]])
   (:import (clhorus.lib.command_bus.protocol CommandBus)))
 
 (deftype CommandBusChannel [atom-chan-handlers]

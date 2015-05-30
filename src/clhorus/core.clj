@@ -1,7 +1,6 @@
 (ns clhorus.core
   (:require clhorus.app.api.handler
             [com.stuartsierra.component :as component]
-            [clhorus.infrastructure.domain-event-publisher.channel-component]
             [clhorus.context.operational.core :refer [context-operational-system]]
             [clhorus.context.analytics.core :refer [context-analytics-system]]
             [clhorus.app.api.handler]

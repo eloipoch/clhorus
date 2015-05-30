@@ -24,9 +24,6 @@ Actually code is in a very early stage.
     - Save a user.
     - Save a user registration.
 
-- Tests:
-    - User registrator service.
-
 - [Component](https://github.com/stuartsierra/component).
 
 
@@ -70,6 +67,8 @@ curl --data "id=4d09a800-3838-11e4-916c-0800200c9a66" http://localhost:8080/user
 ```
 
 ## Test
+
+TODO...
 
 ```
 lein midje
