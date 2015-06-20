@@ -16,9 +16,9 @@
             [clj-uuid :as uuid])
   (:import (clhorus.context.operational.infrastructure.persistence.korma_component DatabaseKormaComponent)
            (clhorus.context.operational.module.user.contract.command.user_registration_command UserRegistrationCommand)
-           (clhorus.context.operational.module.user.domain.user.user User)
            (clhorus.context.operational.module.user.infrastructure.command_bus.handlers_component CommandBusHandlersComponent)))
 
+; @todo move to test infrastructure
 (defrecord UserRepositoryMocked []
   UserRepository
   (add [_ _]))
@@ -50,7 +50,7 @@
 
 (facts "User registrator service"
        (fact "register a new user"
-             (let [user-id-string            (uuid/to-string (uuid/v4))
+             (let [user-id-string            (-> (uuid/v4) (uuid/to-string))
                    user-registration-command (UserRegistrationCommand. user-id-string)
                    system                    (start-test-clhorus-system)
                    operational-command-bus   (get-in system [:context-operational :operational-command-bus])

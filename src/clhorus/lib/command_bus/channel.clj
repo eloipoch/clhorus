@@ -3,6 +3,7 @@
             [clojure.core.async :as async :refer [>! go alts! chan]])
   (:import (clhorus.lib.command_bus.protocol CommandBus)))
 
+; @todo this implementation is the same used for DomainEventPublisherChannel, so extract and refactor
 (deftype CommandBusChannel [atom-chan-handlers]
   CommandBus
 
