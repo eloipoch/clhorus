@@ -9,7 +9,9 @@
   (handle [this command]
     (let [handler-id (class command)
           handler    (get @atom-chan-handlers handler-id)]
-      (go (>! handler command))))
+      (if (nil? handler)
+        (println "No handler found for " handler-id)
+        (go (>! handler command)))))
 
   (register [this command-class handle]
     (let [handler-id command-class

@@ -26,6 +26,9 @@ Actually code is in a very early stage.
 
 - [Component](https://github.com/stuartsierra/component).
 
+- Tests:
+    - User registrator service.
+
 
 ## Installation
 
@@ -67,8 +70,6 @@ curl --data "id=4d09a800-3838-11e4-916c-0800200c9a66" http://localhost:8080/user
 ```
 
 ## Test
-
-TODO...
 
 ```
 lein midje

@@ -9,7 +9,9 @@
   (publish [this domain-event]
     (let [handler-id (class domain-event)
           handler    (get @atom-chan-handlers handler-id)]
-      (go (>! handler domain-event))))
+      (if (nil? handler)
+        (println "No handler found for " handler-id)
+        (go (>! handler domain-event)))))
 
   (subscribe [this domain-event-class handler]
     (let [handler-id domain-event-class
