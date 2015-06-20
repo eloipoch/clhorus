@@ -4,8 +4,6 @@
 
 This project aims to experiment [DDD](http://en.wikipedia.org/wiki/Domain-driven_design) concepts using [Clojure](http://clojure.org).
 
-Actually code is in a very early stage.
-
 
 ## What are implemented?
 
@@ -25,6 +23,7 @@ Actually code is in a very early stage.
     - Save a user registration.
 
 - [Component](https://github.com/stuartsierra/component).
+    - The use of this library provides a fast workflow as is described in this [post](http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded).
 
 - Tests:
     - User registrator service.
@@ -58,9 +57,7 @@ CREATE TABLE `user_registration` (
 
 - Run:
 
-```
-lein run -m clhorus.core
-```
+`lein run -m clhorus.core`
 
 - Try:
 
@@ -71,13 +68,56 @@ curl --data "id=4d09a800-3838-11e4-916c-0800200c9a66" http://localhost:8080/user
 
 ## Test
 
+`lein midje`
+
+## Fast workflow
+
+The idea behind is to start a REPL just once and write code and test it without reload the JVM.
+I used [component](https://github.com/stuartsierra/component) library to achieve that.
+For further knowledge read this [post](http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded).
+
+### Try it
+
+- Start the REPL:
+
+`lein repl`
+
+- On your REPL:
+
+`(go)`
+
+- On other terminal:
+
+`curl http://localhost:8080/foo`
+
+- You get `Not found`
+
+- Now you can change the code to create a new endpoint on the API:
+
 ```
-lein midje
+clhorus/app/api/routing/users.clj:
+
+(defn routes-users [operational-command-bus]
+  (routes
+    (GET "/foo" [] "Foo...")
+    (GET "/users" [] "Not implemented yet :P")
+    (POST "/users" request (users-post operational-command-bus request))))
 ```
 
-Enjoy! :)
+- On your REPL:
+
+`(reset)`
+
+- On the terminal:
+
+`curl http://localhost:8080/foo`
+
+- Now you have a new endpoint working.
 
 
 ## TODO
 
 - Try [Datomic](http://www.datomic.com).
+
+
+Enjoy! :)
