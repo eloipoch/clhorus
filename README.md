@@ -70,11 +70,13 @@ curl --data "id=4d09a800-3838-11e4-916c-0800200c9a66" http://localhost:8080/user
 
 `lein midje`
 
-## Fast workflow
+
+## Workflow without reload the JVM
 
 The idea behind is to start a REPL just once and write code and test it without reload the JVM.
 I used [component](https://github.com/stuartsierra/component) library to achieve that.
 For further knowledge read this [post](http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded).
+
 
 ### Try it
 
