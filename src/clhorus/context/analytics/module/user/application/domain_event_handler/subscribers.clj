@@ -20,3 +20,6 @@
         (assoc :user-registered-domain-event-handler-id nil))
     )
   )
+
+(defn new-user-subscribers []
+  (map->UserSubscribers {}))

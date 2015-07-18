@@ -4,14 +4,14 @@
   (:import (clhorus.lib.command_bus.protocol CommandBus)))
 
 ; @todo this implementation is the same used for DomainEventPublisherChannel, so extract and refactor
-(deftype CommandBusChannel [atom-chan-handlers]
+(defrecord CommandBusChannel [atom-chan-handlers]
   CommandBus
 
   (handle [this command]
     (let [handler-id (class command)
           handler    (get @atom-chan-handlers handler-id)]
       (if (nil? handler)
-        (println "No handler found for " handler-id)
+        (println "No command bus handler found for " handler-id)
         (go (>! handler command)))))
 
   (register [this command-class handle]
@@ -31,4 +31,4 @@
          (reset! atom-chan-handlers))))
 
 (defn new-command-bus-channel []
-  (CommandBusChannel. (atom {})))
+  (map->CommandBusChannel {:atom-chan-handlers (atom {})}))

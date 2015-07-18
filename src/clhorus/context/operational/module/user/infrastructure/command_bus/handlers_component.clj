@@ -22,3 +22,6 @@
     (-> component
         (assoc :operational-command-bus nil)
         (assoc :user-registration-command-handler-id nil))))
+
+(defn new-command-bus-handler []
+  (map->CommandBusHandlersComponent {}))

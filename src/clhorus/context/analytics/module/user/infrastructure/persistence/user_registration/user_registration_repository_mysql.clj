@@ -11,3 +11,6 @@
       (korma/insert entity-with-database (korma/values (user-registration-to-korma user)))
       user))
   )
+
+(defn new-user-registration-repository []
+  (map->UserRegistrationRepositoryMySql {}))

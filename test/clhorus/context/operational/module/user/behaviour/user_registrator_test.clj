@@ -8,31 +8,34 @@
             [clhorus.lib.domain-event.channel :refer [new-domain-event-publisher-channel]]
             [clhorus.lib.command-bus.channel :refer [new-command-bus-channel]]
             [clhorus.lib.command-bus.protocol :as cb]
-            [clhorus.context.operational.module.user.user-module-component :refer [user-module-system]]
-            [clhorus.context.operational.infrastructure.persistence.korma-component]
+            [clhorus.context.operational.module.user.user-module-component :refer [new-user-module-system]]
+            [clhorus.context.operational.infrastructure.persistence.korma-component :refer [new-database]]
             [clhorus.context.operational.module.user.contract.command.user-registration-command]
             [clhorus.context.operational.module.user.domain.user.user]
-            [clhorus.context.operational.module.user.infrastructure.command-bus.handlers-component]
+            [clhorus.context.operational.module.user.infrastructure.command-bus.handlers-component :refer [new-command-bus-handler]]
             [clj-uuid :as uuid])
-  (:import (clhorus.context.operational.infrastructure.persistence.korma_component DatabaseKormaComponent)
-           (clhorus.context.operational.module.user.contract.command.user_registration_command UserRegistrationCommand)
-           (clhorus.context.operational.module.user.infrastructure.command_bus.handlers_component CommandBusHandlersComponent)))
+  (:import (clhorus.context.operational.module.user.contract.command.user_registration_command UserRegistrationCommand)))
 
 ; @todo move to test infrastructure
 (defrecord UserRepositoryMocked []
   UserRepository
   (add [_ _]))
 
+; @todo move to test infrastructure
+(defn new-user-repository []
+  (map->UserRepositoryMocked {}))
+
+
 (defn test-user-module-system []
   (component/system-map
-    :repository-user (UserRepositoryMocked.)
-    :command-bus-operational-user-handlers (component/using (CommandBusHandlersComponent.) [:operational-command-bus
-                                                                                            :repository-user
-                                                                                            :domain-event-publisher])))
+    :repository-user (new-user-repository)
+    :command-bus-operational-user-handlers (component/using (new-command-bus-handler) [:operational-command-bus
+                                                                                       :repository-user
+                                                                                       :domain-event-publisher])))
 
 (defn test-context-operational-system []
   (component/system-map
-    :database-operational (DatabaseKormaComponent. (:database :mocked))
+    :database-operational (new-database (:database :mocked))
     :operational-command-bus (new-command-bus-channel)
     :user-module (component/using (test-user-module-system) [:domain-event-publisher
                                                              :database-operational

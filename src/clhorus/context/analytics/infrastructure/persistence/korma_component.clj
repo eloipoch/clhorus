@@ -10,3 +10,6 @@
 
   (stop [component]
     (assoc component :database nil)))
+
+(defn new-database [config]
+  (map->DatabaseKormaComponent {:config config}))

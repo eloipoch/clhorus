@@ -10,3 +10,6 @@
     (let [entity-with-database (korma/database entity-user-korma (:database (:database component)))]
       (korma/insert entity-with-database (korma/values (user-to-korma user)))
       user)))
+
+(defn new-user-repository []
+  (map->UserRepositoryMySql {}))
