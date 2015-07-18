@@ -1,20 +1,17 @@
 (ns clhorus.core
-  (:require clhorus.app.api.handler
+  (:require clhorus.app.api.http-server
             [com.stuartsierra.component :as component]
             [clhorus.context.operational.core :refer [new-context-operational-system]]
             [clhorus.context.analytics.core :refer [new-context-analytics-system]]
-            [clhorus.app.api.handler]
-            [clhorus.lib.domain-event.channel :refer [new-domain-event-publisher-channel]]
-            )
-
-  (:import (clhorus.app.api.handler ApplicationApiComponent)))
+            [clhorus.app.api.http-server :refer [new-application-api]]
+            [clhorus.lib.domain-event.channel :refer [new-domain-event-publisher-channel]]))
 
 (defn clhorus-system []
   (component/system-map
     :domain-event-publisher (new-domain-event-publisher-channel)
     :context-operational (component/using (new-context-operational-system) [:domain-event-publisher])
     :context-analytics (component/using (new-context-analytics-system) [:domain-event-publisher])
-    :application-api (component/using (ApplicationApiComponent.) [:context-operational])))
+    :application-api (component/using (new-application-api) [:context-operational])))
 
 (def system (clhorus-system))
 

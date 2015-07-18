@@ -1,4 +1,4 @@
-(ns clhorus.app.api.handler
+(ns clhorus.app.api.http-server
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
@@ -31,3 +31,6 @@
     (println "  Stopping Application API...")
     ((:stop-server component))
     (dissoc component :stop-server)))
+
+(defn new-application-api []
+  (map->ApplicationApiComponent {}))
