@@ -1,34 +1,20 @@
 (ns clhorus.lib.domain-event.channel
   (:require [clhorus.lib.domain-event.protocol]
-            [clojure.core.async :as async :refer [>! go alts! chan]])
+            [clhorus.lib.bus.channel :refer [new-bus-channel]]
+            [clhorus.lib.bus.protocol :as bus])
   (:import (clhorus.lib.domain_event.protocol DomainEventPublisher)))
 
-; @todo this implementation is the same used for CommandBusChannel, so extract and refactor
-(defrecord DomainEventPublisherChannel [atom-chan-handlers]
+(defrecord DomainEventPublisherChannel [bus-channel]
   DomainEventPublisher
 
   (publish [this domain-event]
-    (let [handler-id (class domain-event)
-          handler    (get @atom-chan-handlers handler-id)]
-      (if (nil? handler)
-        (println "No domain event handler found for " handler-id)
-        (go (>! handler domain-event)))))
+    (bus/publish bus-channel domain-event))
 
   (subscribe [this domain-event-class handler]
-    (let [handler-id domain-event-class
-          bus        (chan)]
-      (->> bus
-           (assoc @atom-chan-handlers handler-id)
-           (reset! atom-chan-handlers))
-      ; @fixme it should manage how ends the infinite loop
-      (go (while true
-            (let [[domain-event channel] (alts! [bus])]
-              (handler domain-event))))
-      handler-id))
+    (bus/subscribe bus-channel domain-event-class handler))
 
   (unsubscribe [this id]
-    (->> (dissoc @atom-chan-handlers id)
-         (reset! atom-chan-handlers))))
+    (bus/unsubscribe bus-channel id)))
 
 (defn new-domain-event-publisher-channel []
-  (map->DomainEventPublisherChannel {:atom-chan-handlers (atom {})}))
+  (map->DomainEventPublisherChannel {:bus-channel (new-bus-channel)}))
