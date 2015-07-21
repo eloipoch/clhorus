@@ -1,4 +1,5 @@
 (ns clhorus.context.analytics.module.user.infrastructure.persistence.user-registration.user-registration-mapping
+  (:refer-clojure :exclude [update])
   (:use [clhorus.lib.uuid.uuid]
         [korma.core])
   (:require [clhorus.context.analytics.module.user.domain.user-registration.user-registration])

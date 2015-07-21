@@ -1,4 +1,5 @@
 (ns clhorus.context.operational.module.user.infrastructure.persistence.user.user-mapping
+  (:refer-clojure :exclude [update])
   (:use [clhorus.lib.uuid.uuid]
         [korma.core]
         [korma.db])

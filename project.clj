@@ -1,10 +1,10 @@
 (defproject clhorus "0.0.1-SNAPSHOT"
             :description "Clhorus experimentation project"
-            :dependencies [[org.clojure/clojure "1.6.0"]
+            :dependencies [[org.clojure/clojure "1.7.0"]
                            [compojure "1.3.3"]
                            [http-kit "2.1.18"]
                            [ring/ring-defaults "0.1.2"]
-                           [korma "0.4.0"]
+                           [korma "0.4.2"]
                            [mysql/mysql-connector-java "5.1.34"]
                            [danlentz/clj-uuid "0.1.2-SNAPSHOT"]
                            [clj-time "0.9.0"]
