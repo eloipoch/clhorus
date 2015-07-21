@@ -5,6 +5,6 @@
 
 (defn new-user-module-system []
   (component/system-map
-    :repository-user (component/using (new-user-registration-repository) {:database :database-analytics})
-    :domain-event-publisher-subscribers (component/using (new-user-subscribers) [:domain-event-publisher :repository-user])
+    :repository-user (-> (new-user-registration-repository) (component/using {:database :database-analytics}))
+    :domain-event-publisher-subscribers (-> (new-user-subscribers) (component/using [:domain-event-publisher :repository-user]))
     ))

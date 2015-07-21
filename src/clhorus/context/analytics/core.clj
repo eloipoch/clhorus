@@ -7,5 +7,5 @@
 (defn new-context-analytics-system []
   (component/system-map
     :database-analytics (new-database (:database analytics-config))
-    :user-module (component/using (new-user-module-system) [:database-analytics
-                                                            :domain-event-publisher])))
+    :user-module (-> (new-user-module-system) (component/using [:database-analytics
+                                                                :domain-event-publisher]))))

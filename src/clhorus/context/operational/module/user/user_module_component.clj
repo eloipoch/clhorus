@@ -5,7 +5,7 @@
 
 (defn new-user-module-system []
   (component/system-map
-    :repository-user (component/using (new-user-repository) {:database :database-operational})
-    :command-bus-operational-user-handlers (component/using (new-command-bus-handler) [:operational-command-bus
-                                                                                       :repository-user
-                                                                                       :domain-event-publisher])))
+    :repository-user (-> (new-user-repository) (component/using {:database :database-operational}))
+    :command-bus-operational-user-handlers (-> (new-command-bus-handler) (component/using [:operational-command-bus
+                                                                                           :repository-user
+                                                                                           :domain-event-publisher]))))

@@ -11,6 +11,6 @@
   (component/system-map
     :database-operational (new-database (:database operational-config))
     :operational-command-bus (new-command-bus-channel)
-    :user-module (component/using (new-user-module-system) [:domain-event-publisher
-                                                            :database-operational
-                                                            :operational-command-bus])))
+    :user-module (-> (new-user-module-system) (component/using [:domain-event-publisher
+                                                                :database-operational
+                                                                :operational-command-bus]))))
