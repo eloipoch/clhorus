@@ -18,7 +18,8 @@
       (assoc component :channel channel)))
 
   (stop [component]
-    (rmq/close (:channel component))
+    (if-let [channel (:channel component)]
+      (rmq/close channel))
     (assoc component :channel nil)))
 
 (defn rabbitmq-new-worker [exchange-name queue-name subscribers]

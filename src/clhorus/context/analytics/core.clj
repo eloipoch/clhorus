@@ -9,8 +9,8 @@
 (defn new-context-analytics-system []
   (component/system-map
     :database-analytics (new-database (:database analytics-config))
-    :rabbitmq-connection (rabbitmq-new-connection)
-    :domain-event-worker (-> (new-domain-event-worker (:exchange-name analytics-config))
+    :rabbitmq-connection (rabbitmq-new-connection (:rabbitmq-connection analytics-config))
+    :domain-event-worker (-> (new-domain-event-worker (get-in analytics-config [:rabbitmq-worker :exchange-name]))
                              (component/using [:rabbitmq-connection
                                                :domain-event-publisher]))
     :user-module (-> (new-user-module-system)
