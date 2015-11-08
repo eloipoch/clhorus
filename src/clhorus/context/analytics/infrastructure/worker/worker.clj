@@ -1,4 +1,4 @@
-(ns clhorus.context.analytics.module.user.infrastructure.worker.domain-event.worker
+(ns clhorus.context.analytics.infrastructure.worker.worker
   (:require [clhorus.lib.rabbitmq.worker :refer [rabbitmq-new-worker]]))
 
 (defn- message-handler [component ch {:keys [content-type delivery-tag type] :as meta} ^bytes payload]

@@ -3,7 +3,7 @@
             [clhorus.lib.rabbitmq.connection :refer [rabbitmq-new-connection]]
             [clhorus.context.analytics.config :refer [analytics-config]]
             [clhorus.context.analytics.infrastructure.persistence.korma-component :refer [new-database]]
-            [clhorus.context.analytics.module.user.infrastructure.worker.domain-event.worker :refer [new-domain-event-worker]]
+            [clhorus.context.analytics.infrastructure.worker.worker :refer [new-domain-event-worker]]
             [clhorus.context.analytics.module.user.user-module-component :refer [new-user-module-system]]))
 
 (defn new-context-analytics-system []
