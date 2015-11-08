@@ -4,4 +4,5 @@
   {:database {:db       "clhorus_analytics_tests"
               :host     "127.0.0.1"
               :user     "root"
-              :password ""}})
+              :password ""}
+   :exchange-name "domain_events"})

@@ -9,9 +9,12 @@
 (defn clhorus-system []
   (component/system-map
     :domain-event-publisher (new-domain-event-publisher-channel)
-    :context-operational (-> (new-context-operational-system) (component/using [:domain-event-publisher]))
-    :context-analytics (-> (new-context-analytics-system) (component/using [:domain-event-publisher]))
-    :application-api (-> (new-application-api) (component/using [:context-operational]))))
+    :context-operational (-> (new-context-operational-system)
+                             (component/using [:domain-event-publisher]))
+    :context-analytics (-> (new-context-analytics-system)
+                           (component/using [:domain-event-publisher]))
+    :application-api (-> (new-application-api)
+                         (component/using [:context-operational]))))
 
 (def system (clhorus-system))
 
