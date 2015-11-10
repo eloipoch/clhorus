@@ -13,4 +13,4 @@
     (rmq/close conn)))
 
 (defn publish-domain-events-test []
-  (publish "domain_events" "routing-key" "Hello!"))
+  (publish "domain_events" "routing-key" "{\n  \"aggregate_id\": \"de2e749c-16a7-422b-bacc-c467acb1eff1\",\n  \"name\": \"user_registered\",\n  \"occured_on\": \"2015-11-10\",\n  \"body\": {\n    \"applicationId\": \"a7cda525-1e21-4af9-91f4-d922191bdfd4\",\n    \"ip\": \"213.23.1.56\",\n    \"countryCode\": \"CT\",\n    \"countryName\": \"Catalunya\",\n    \"analyticsContextId\": \"11f8ccf0-b9b1-4b45-81bd-13b5861ffadc\",\n  }\n}\n"))

@@ -5,8 +5,7 @@
             [langohr.queue :as lq]
             [langohr.consumers :as lc]))
 
-; @todo send to callback not all the component
-(defrecord RabbitMQWorker [exchange-name queue-name subscribers]
+(defrecord RabbitMQWorker [exchange-name queue-name subscriber]
   component/Lifecycle
 
   (start [component]
@@ -14,7 +13,7 @@
           channel    (lch/open connection)]
       (lq/declare channel queue-name {:durable true :exclusive false :auto-delete false})
       (lq/bind channel queue-name exchange-name {:routing-key "#"})
-      (apply #(lc/subscribe channel queue-name (partial % component) {:auto-ack true}) subscribers)
+      (lc/subscribe channel queue-name (partial subscriber component) {:auto-ack true})
       (assoc component :channel channel)))
 
   (stop [component]
@@ -22,7 +21,7 @@
       (rmq/close channel))
     (assoc component :channel nil)))
 
-(defn rabbitmq-new-worker [exchange-name queue-name subscribers]
+(defn rabbitmq-new-worker [exchange-name queue-name subscriber]
   (map->RabbitMQWorker {:exchange-name exchange-name
                         :queue-name    queue-name
-                        :subscribers   subscribers}))
+                        :subscriber    subscriber}))
