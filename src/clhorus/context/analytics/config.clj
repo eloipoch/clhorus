@@ -5,6 +5,10 @@
                          :host     "127.0.0.1"
                          :user     "root"
                          :password ""}
+   :database-jdbc       {:subprotocol "mysql"
+                         :subname     "//127.0.0.1:3306/horus_analytics"
+                         :user        "root"
+                         :password    ""}
    :rabbitmq-connection {
                          :host     "localhost"
                          :port     5672
@@ -12,7 +16,7 @@
                          :username "guest"
                          :password "guest"
                          }
-   :rabbitmq-worker      {
+   :rabbitmq-worker     {
                          :exchange-name "domain_events"
                          }
    })

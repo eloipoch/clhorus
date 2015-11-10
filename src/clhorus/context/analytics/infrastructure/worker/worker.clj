@@ -12,9 +12,9 @@
 (defn new-domain-event-worker [exchange-name]
   (component/system-map
     :rabbitmq-connection (rabbitmq-new-connection (:rabbitmq-connection analytics-config))
-    :worker1 (-> (rabbitmq-new-worker exchange-name "clhorus.analytics.domain-event" print-handler)
-                 (component/using [:rabbitmq-connection
-                                   :domain-event-publisher]))
-    :worker2 (-> (rabbitmq-new-worker exchange-name "clhorus.analytics.domain-event2" all-domain-events-persister/handler)
-                 (component/using [:rabbitmq-connection
-                                   :domain-event-publisher]))))
+    :worker-print-handler (-> (rabbitmq-new-worker exchange-name "clhorus.analytics.print-handler" print-handler)
+                              (component/using [:rabbitmq-connection
+                                                :domain-event-publisher]))
+    :worker-all-domain-events-persister (-> (rabbitmq-new-worker exchange-name "clhorus.analytics.all_domain_events_persister" all-domain-events-persister/handler)
+                                            (component/using [:rabbitmq-connection
+                                                              :domain-event-publisher]))))
