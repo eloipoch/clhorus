@@ -6,7 +6,7 @@
                          :user     "root"
                          :password ""}
    :database-jdbc       {:subprotocol "mysql"
-                         :subname     "//127.0.0.1:3306/horus_analytics"
+                         :subname     "//127.0.0.1:3306/clhorus_analytics_tests"
                          :user        "root"
                          :password    ""}
    :rabbitmq-connection {
