@@ -29,7 +29,8 @@
 
   (stop [component]
     (println "  Stopping Application API...")
-    ((:stop-server component))
+    (if-let [stop-server (:stop-server component)]
+      (stop-server))
     (dissoc component :stop-server)))
 
 (defn new-application-api []

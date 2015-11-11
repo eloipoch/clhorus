@@ -25,6 +25,8 @@ This project aims to experiment [DDD](http://en.wikipedia.org/wiki/Domain-driven
 - [Component](https://github.com/stuartsierra/component).
     - The use of this library provides a fast workflow as is described in this [post](http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded).
 
+- RabbitMQ workers.
+
 - Tests:
     - User registrator service.
 
@@ -40,6 +42,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
+
 - Create a MySQL database called `clhorus_analytics_tests`.
 - Dump this SQL:
 
@@ -51,9 +54,28 @@ CREATE TABLE `user_registration` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
+- Create a MySQL database called `clhorus_analytics_tests`.
+- Dump this SQL:
+
+```
+CREATE TABLE `domain_event_2` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `aggregate_id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `data` varchar(21000) NOT NULL,
+  `occurred_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `in_aggregate_id` (`aggregate_id`),
+  KEY `in_name` (`name`),
+  KEY `in_occurred_on` (`occurred_on`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+```
+
 - Configure database connection in:
     - `clhorus/context/operational/infrastructure/config.clj`
     - `clhorus/context/analytics/infrastructure/config.clj`
+
+- Install and run RabbitMQ.
 
 - Run:
 
@@ -115,6 +137,15 @@ clhorus/app/api/routing/users.clj:
 `curl http://localhost:8080/foo`
 
 - Now you have a new endpoint working.
+
+
+## Compile, run and connect to the REPL
+
+```
+lein uberjar
+java -jar target/clhorus-0.0.1-SNAPSHOT-standalone.jar
+lein repl :connect localhost:7888
+```
 
 
 ## TODO

@@ -1,17 +1,22 @@
 (ns clhorus.core
+  (:gen-class)
   (:require clhorus.app.api.http-server
             [com.stuartsierra.component :as component]
             [clhorus.context.operational.core :refer [new-context-operational-system]]
             [clhorus.context.analytics.core :refer [new-context-analytics-system]]
             [clhorus.app.api.http-server :refer [new-application-api]]
-            [clhorus.lib.domain-event.channel :refer [new-domain-event-publisher-channel]]))
+            [clhorus.lib.domain-event.channel :refer [new-domain-event-publisher-channel]])
+  (:use [clojure.tools.nrepl.server :only (start-server stop-server)]))
 
 (defn clhorus-system []
   (component/system-map
     :domain-event-publisher (new-domain-event-publisher-channel)
-    :context-operational (-> (new-context-operational-system) (component/using [:domain-event-publisher]))
-    :context-analytics (-> (new-context-analytics-system) (component/using [:domain-event-publisher]))
-    :application-api (-> (new-application-api) (component/using [:context-operational]))))
+    :context-operational (-> (new-context-operational-system)
+                             (component/using [:domain-event-publisher]))
+    :context-analytics (-> (new-context-analytics-system)
+                           (component/using [:domain-event-publisher]))
+    :application-api (-> (new-application-api)
+                         (component/using [:context-operational]))))
 
 (def system (clhorus-system))
 
@@ -23,5 +28,7 @@
   (println "Stopping...")
   (alter-var-root #'clhorus.core/system component/stop))
 
-(defn -main []
+(defn -main [& args]
+  (defonce server (start-server :port 7888))
   (start))
+
